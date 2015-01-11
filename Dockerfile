@@ -26,15 +26,16 @@ RUN apt-get install -y \
     git-core  
 
 
+RUN apt-get install -y subversion
 RUN useradd -ms /bin/bash plone
 
 USER plone
 WORKDIR /home/plone
 
 RUN virtualenv .
-RUN bin/pip install grampg
 RUN git clone https://github.com/plone/buildout.coredev.git
 WORKDIR buildout.coredev
+RUN git checkout 5.0
 #RUN ../bin/python bootstrap.py --setuptools-version=7.0 --version=2.2.5 -c buildout-plone-4.3.cfg
 RUN ../bin/python bootstrap.py 
 RUN bin/buildout 
